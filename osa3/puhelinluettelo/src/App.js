@@ -54,74 +54,47 @@ const App = () => {
   })
   const addContact = (event) => {
     event.preventDefault()
-    const contactObject = {
-      name: newName,
-      number: newNumber
-    }
-    setSuccess(`${contactObject.name} was added to phonebook`)
-    setTimeout(() => {
-      setSuccess(null)
-    }, 3000)
 
-    contactService
-      .create(contactObject)
-        .then(returnedContact => {
-          persons.forEach(contact => {
-            if(contact.name === newName) {
-              contactService.getAll(contactObject)
-              .then(reUpdate => {
-                const wantToUpdate = window.confirm(`${contact.name} already exists in phonebook, do you wish to replace old number with new one?`)
-                if (wantToUpdate) {
-                  return (
-                    contactService
-                      .update(contact.id, contactObject)
-                        .then(reUpdate => {
-                          contactService
-                            .remove(contact.id)
-                              .then(reUpdate => {
-                                setPersons(persons.splice(reUpdate))
-                                contactService.getAll().then(getter => {
-                                  setPersons(getter)
-                                  setSuccess(`${contact.name}'s number was changed`)
-                                  setTimeout(() => {
-                                    setSuccess(null)
-                                  }, 3000)
-                                })
-                              })
-                          })
-                          .catch(error => {
-                            contactService.getAll().then(getter => {
-                            setError(`the contact '${contact.name}' was already deleted from server`)
-                            setTimeout(() => {
-                              setError(null)
-                            }, 3000)
-                          })
-                        })
-                    )
-                } else {
-                  contactService
-                    .remove(contact.id)
-                      .then(deleteContact => {
-                        setPersons(persons.splice(deleteContact))
-                          contactService.getAll().then(getter => {
-                            setPersons(getter)
-                          })
-                      })
-                    .catch(error => {
-                      setError(`the contact '${contact.name}' was already deleted from server`)
-                      setTimeout(() => {
-                        setSuccess(null)
-                      }, 3000)
-                      })
-                }
-              })
-              
-            } else {
-              setPersons(persons.concat(returnedContact))
-              setNewName('')
-              setNewNumber('')
-            }
-        })
+    const existingPerson = persons.find(p => p.name === newName)
+
+    if (existingPerson) {
+      const ok = window.confirm(`${newName} already exists in phonebook, do you want to update number?`)
+      if (ok) {
+        contactService
+          .replace({
+            ...existingPerson,
+            number: newNumber
+          })
+          .then(replacedPerson => {
+            setPersons(persons.map(p => p.name === newName ? replacedPerson : p))
+            setNewName('')
+            setNewNumber('')
+          })
+      }
+      return (
+        setNewName(''), setNewNumber('')
+      )
+    }
+  contactService
+      .create({
+        name: newName,
+        number: newNumber
+      })
+      .then(createdPerson => {
+        setPersons(persons.concat(createdPerson))
+        setNewName('')
+        setNewNumber('')
+        setSuccess(`Added ${createdPerson.name}`)
+        setTimeout(() => {
+          setSuccess(null)
+        }, 3000)
+      })
+      .catch(error => {
+        setError(`${error.response.data}`)
+        console.log(error.response.data)
+        setTimeout(() => {
+          setError(null)
+        }, 2000)
       })
   }
 
@@ -134,12 +107,12 @@ const App = () => {
               .then(deleteContact => {
                 contactService
                   .getAll()
-                    .then(reUpdate => {
-                      setPersons(reUpdate)
-                      setSuccess(`${contact.name} was removed from phonebook`)
-                      setTimeout(() => {
-                        setSuccess(null)
-                      }, 3000)
+                  .then(reUpdate => {
+                    setPersons(reUpdate)
+                    setSuccess(`${contact.name} was removed from phonebook`)
+                    setTimeout(() => {
+                      setSuccess(null)
+              }, 3000)
             })
           })
         )
