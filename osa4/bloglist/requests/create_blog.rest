@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "The Massacre of chickens",
-    "author": "John Nugget",
-    "url": "www.deeznuggets.com",
-    "likes": 53
+    "title": "The Chicken",
+    "author": "Benjamin B",
+    "url": "www.burgerfests.com",
+    "likes": 54
 }
