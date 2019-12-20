@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "The Chicken",
+    "title": "The Ugly",
     "author": "Benjamin B",
-    "url": "www.burgerfests.com",
-    "likes": 54
+    "url": "www.burgerfests.com/ugly",
+    "likes": 548
 }
