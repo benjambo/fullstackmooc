@@ -3,11 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "deep-freeze": "0.0.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "^3.3.0",
-    "redux": "^4.0.1"
+    "redux": "^4.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -23,5 +22,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "deep-freeze": "0.0.1"
+  }
 }
