@@ -1,0 +1,28 @@
+{
+  "notes": [
+    {
+      "content": "Custom Hooks Trial",
+      "id": 1
+    },
+    {
+      "content": "Feature of the year",
+      "id": 2
+    },
+    {
+      "content": "This is America",
+      "id": 3
+    }
+  ],
+  "persons": [
+    {
+      "name": "benjambo",
+      "number": "045-123456",
+      "id": 1
+    },
+    {
+      "name": "joshin",
+      "number": "040-654321",
+      "id": 2
+    }
+  ]
+}
