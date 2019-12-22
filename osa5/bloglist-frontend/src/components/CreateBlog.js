@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const AddNewBlog = ({ title, author, url, postNewBlog }) => {
+const CreateBlog = ({ title, author, url, postNewBlog }) => {
   return (
     <div>
       <h1>create new</h1>
@@ -20,11 +20,11 @@ const AddNewBlog = ({ title, author, url, postNewBlog }) => {
     </div>
   )
 }
-AddNewBlog.propTypes = {
+CreateBlog.propTypes = {
   title: PropTypes.object.isRequired,
   author: PropTypes.object.isRequired,
   url: PropTypes.object.isRequired,
   postNewBlog: PropTypes.func.isRequired
 }
 
-export default AddNewBlog
+export default CreateBlog

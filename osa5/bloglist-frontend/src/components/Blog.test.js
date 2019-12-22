@@ -30,8 +30,13 @@ test('Blog test', () => {
     <Blog blog={Data} key={1} setBlogs={''} user={user} />
   )
   const div = component.container.querySelector('.notClicked')
+
   expect(div).toHaveTextContent('The Chicken Massacre')
+
   fireEvent.click(div)
-  //expect(div).toHaveTextContent('added by BenjaminB')
-  //expect(div).toHaveTextContent('www.deeznuggets.com/chicken')
+
+  expect(div).toHaveTextContent('added by Benjamin B')
+  expect(div).toHaveTextContent('14 likes')
+
+  console.log(prettyDOM())
 })

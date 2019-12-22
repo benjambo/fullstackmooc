@@ -80,11 +80,6 @@ bloglistRouter.delete('/:id', async (request, response, next) => {
       if (!request.token || !decodedToken.id) {
         return response.status(401).json({ error: 'token missing or invalid' })
       }
-      if (decodedToken.id.toString() !== exists.userId.toString()) {
-        return response
-          .status(401)
-          .json({ error: 'User auth didnt match blog permission' })
-      }
 
       await Blog.findByIdAndDelete(request.params.id)
       response.status(204).end()

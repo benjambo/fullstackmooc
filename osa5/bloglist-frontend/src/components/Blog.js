@@ -14,13 +14,14 @@ const Blog = ({ blog, setBlogs, user }) => {
     const copyblog = { ...blog }
     const newBlog = {
       ...copyblog,
-      userId: copyblog.userId.id,
+      user: copyblog.user.id,
       likes: copyblog.likes + 1
     }
     delete newBlog.id
     const responseBlog = await Blogloader.update(blog.id, newBlog)
     const updateBlogs = await Blogloader.getAll()
     setBlogs(updateBlogs)
+    console.log(responseBlog)
   }
 
   const handleBlogRemove = async () => {
@@ -29,6 +30,7 @@ const Blog = ({ blog, setBlogs, user }) => {
         const response = await Blogloader.remove(blog.id)
         const updateBlogs = await Blogloader.getAll()
         setBlogs(updateBlogs)
+        console.log(response)
       }
     } catch (error) {
       console.log(error)
@@ -48,16 +50,16 @@ const Blog = ({ blog, setBlogs, user }) => {
     return (
       <div style={blogStyle} className="clicked">
         <p onClick={() => setClick(!click)}>
-          {blog.title} {blog.author}{' '}
+          {blog.title} by {blog.author}{' '}
         </p>
         <a href={blog.url}>{blog.url}</a>
-        <p></p>
-        <span> {blog.likes} likes </span>
-        <button onClick={() => handleLike()}>like</button>
-        <p>added by {blog.userId.name}</p>
-        {blog.userId.username === user.username && (
-          <button onClick={() => handleBlogRemove()}>remove</button>
-        )}
+        <p>
+          {' '}
+          {blog.likes} likes <button onClick={() => handleLike()}>like</button>{' '}
+        </p>
+
+        <p>added by {user.name}</p>
+        <button onClick={() => handleBlogRemove()}>remove</button>
       </div>
     )
   }

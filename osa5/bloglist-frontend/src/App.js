@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import loginService from './services/login'
 import blogService from './services/blogs'
 import Blog from './components/Blog'
-import AddNewBlog from './components/AddNewBlog'
+import CreateBlog from './components/CreateBlog'
 import Togglable from './components/Toggable'
 import { useField } from './hooks/'
 
@@ -65,7 +65,7 @@ const App = () => {
 
   const postNewBlog = async event => {
     event.preventDefault()
-    let blog = {
+    const blog = {
       title: title.value,
       author: author.value,
       url: url.value,
@@ -73,9 +73,11 @@ const App = () => {
     }
     try {
       const response = await blogService.create(blog)
-      setInfoMessage('A new blog ' + blog.title + ' by ' + blog.author)
-      const blogi = await blogService.getAll()
-      setBlogs(blogi)
+      setInfoMessage(
+        'Created new blog ' + blog.title + ' by ' + blog.author + ' added'
+      )
+      const newBlog = await blogService.getAll()
+      setBlogs(newBlog)
       setTimeout(() => {
         setInfoMessage(null)
       }, 5000)
@@ -87,43 +89,34 @@ const App = () => {
 
   const loginForm = () => (
     <div className="App">
-      <h2>Log in to application</h2>
+      <h2>Log into application</h2>
       {errorMessage !== null && <p>{errorMessage}</p>}
       <form onSubmit={handleLogin}>
         <div>
-          username
+          Username
           <input {...userLogin} reset={''} />
         </div>
         <div>
-          password
+          Password
           <input {...userPassword} reset={''} />
         </div>
-        <button type="submit">login</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   )
-  /*
-  title={title}
-            author={author}
-            url={url}
-            setAuthor={setAuthor}
-            setTitle={setTitle}
-            setUrl={setUrl}
-            */
 
   const userBlogs = user => {
     let filteredBlogs = [...blogs]
-    //filteredBlogs = filteredBlogs.filter(blogi => blogi.userId.username == user.username)
     filteredBlogs.sort((a, b) => b.likes - a.likes)
     return (
       <div>
-        <h1>blogs</h1>
+        <h1>Blogs</h1>
         {infoMessage !== null && <Info msg={infoMessage} />}
         <span>{user.name} logged in</span>
         <button onClick={handleLogOut}>logout</button>
         <p></p>
-        <Togglable label={'new blog'}>
-          <AddNewBlog
+        <Togglable label={'New blog'}>
+          <CreateBlog
             title={title}
             author={author}
             url={url}
