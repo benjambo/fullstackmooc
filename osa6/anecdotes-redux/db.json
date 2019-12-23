@@ -1,0 +1,34 @@
+{
+  "anecdotes": [
+    {
+      "content": "This is America",
+      "votes": 20,
+      "id": 1
+    },
+    {
+      "content": "Forever you shall not pass",
+      "votes": 14,
+      "id": 2
+    },
+    {
+      "content": "Where will you go",
+      "votes": 4,
+      "id": 3
+    },
+    {
+      "content": "What if",
+      "votes": 2,
+      "id": 4
+    },
+    {
+      "content": "Hello, it's me",
+      "votes": 4,
+      "id": 5
+    },
+    {
+      "content": "On the first day of Christmas",
+      "votes": 8,
+      "id": 6
+    }
+  ]
+}
